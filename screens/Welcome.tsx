@@ -79,7 +79,7 @@ const auth0ClientId = "dRp7w1EHZ9KX2AJ3qhDzCCpP6W9iov7w";
 const authorizationEndpoint = "https://sortedfood.eu.auth0.com/authorize";
 
 const useProxy = Platform.select({ web: false, default: true });
-const redirectUri = AuthSession.makeRedirectUri({ useProxy });
+const redirectUri = AuthSession.makeRedirectUri({ useProxy: false });
 
 const WelcomeScreen = ({ navigation }: Props) => {
   const orientation = useOrientation();
