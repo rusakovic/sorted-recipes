@@ -37,7 +37,7 @@ The Home screen should load from the Menu API (https://cook.sorted.club/api/v1/m
 
 **A dedicated Recipe screen which can be navigated to from the Home screen**
 
-From the Home screen, you should be able to navigate to a new Recipe screen (the Recipes displayed on the Home screen should be clickable). The Recipe screen itself should load from the Recipe API (https://cook.sorted.club/api/v1/recipe/{recipeId}/) and should be kept visually simple. At a minimum, include the following information on the Recipe screen:
+From the Home screen, you should be able to navigate to a new Recipe screen (the Recipes displayed on the Home screen should be clickable). The Recipe screen itself should use data loaded from the Menu API and should be kept visually simple. At a minimum, include the following information on the Recipe screen:
 - Image
 - Title
 - Portion size toggle (refer to the `num_people` property)
