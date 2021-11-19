@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as Font from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
@@ -14,6 +14,8 @@ import { persistor, store } from './redux/store'
 import { useAppSelector } from './hooks/redux/selectorDispatch'
 import {} from './features/login/loginSlice'
 import { PersistGate } from 'redux-persist/integration/react'
+import Recipe from './screens/Recipe'
+import { colour } from './styles'
 
 const renogare = require('./assets/fonts/Renogare-Regular.otf')
 const montserrat = require('./assets/fonts/Montserrat-Regular.ttf')
@@ -22,21 +24,30 @@ const montserratBold = require('./assets/fonts/Montserrat-Bold.ttf')
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const Navigator = () => {
+  const AppTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: colour.white.fullWhite,
+    },
+  }
+
   const loggedUser = useAppSelector((state) => state.login.user?.exp ?? null)
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={AppTheme}>
       <Stack.Navigator>
         {loggedUser ? (
-          <Stack.Screen name='Home' component={HomeScreen} />
-        ) : (
           <>
-            <Stack.Screen
-              name='Welcome'
-              component={WelcomeScreen}
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name='Home' component={HomeScreen} />
+            <Stack.Screen name='Recipe' component={Recipe} />
           </>
+        ) : (
+          <Stack.Screen
+            name='Welcome'
+            component={WelcomeScreen}
+            options={{ headerShown: false }}
+          />
         )}
       </Stack.Navigator>
     </NavigationContainer>

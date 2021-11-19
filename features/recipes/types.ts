@@ -19,7 +19,7 @@ export interface TransformedPacksRoot {
   [key: number]: PackWithKeys
 }
 
-interface PackWithKeys {
+export interface PackWithKeys {
   id: number
   is_trial: boolean
   code: string
