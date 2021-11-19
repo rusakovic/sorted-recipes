@@ -12,6 +12,7 @@ import {
 } from 'redux-persist'
 
 import loginReducer from '../features/login/loginSlice'
+import { recipesApiSlice } from '../features/recipes/fetchRecipes'
 
 const whitelist = ['login']
 
@@ -24,6 +25,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   login: loginReducer,
+  [recipesApiSlice.reducerPath]: recipesApiSlice.reducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -35,7 +37,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(recipesApiSlice.middleware),
 })
 
 export const persistor = persistStore(store)

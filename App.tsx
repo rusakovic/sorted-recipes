@@ -87,7 +87,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
           <Navigator />
         </View>
