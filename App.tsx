@@ -10,9 +10,10 @@ import WelcomeScreen from './screens/Welcome'
 
 import { RootStackParamList } from './types'
 import { Provider } from 'react-redux'
-import { store } from './redux/store'
+import { persistor, store } from './redux/store'
 import { useAppSelector } from './hooks/redux/selectorDispatch'
 import {} from './features/login/loginSlice'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const renogare = require('./assets/fonts/Renogare-Regular.otf')
 const montserrat = require('./assets/fonts/Montserrat-Regular.ttf')
@@ -86,9 +87,11 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
-        <Navigator />
-      </View>
+      <PersistGate persistor={persistor}>
+        <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+          <Navigator />
+        </View>
+      </PersistGate>
     </Provider>
   )
 }
