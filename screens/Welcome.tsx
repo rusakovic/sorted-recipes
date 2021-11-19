@@ -22,8 +22,10 @@ import WelcomeSlide from '../components/WelcomeSlide'
 import { spacing } from '../styles'
 
 import { RootStackParamList } from '../types'
+import { useAppDispatch } from '../hooks/redux/selectorDispatch'
+import { setUserCredentials } from '../features/login/loginSlice'
 
-interface JWT extends JwtPayload {
+export interface JWT extends JwtPayload {
   name: string
   nickname: string
   nonce: string
@@ -84,6 +86,8 @@ const redirectUri = AuthSession.makeRedirectUri({ useProxy: false })
 const WelcomeScreen = ({ navigation }: Props) => {
   const orientation = useOrientation()
 
+  const dispatch = useAppDispatch()
+
   const [request, result, promptAsync] = AuthSession.useAuthRequest(
     {
       redirectUri,
@@ -113,9 +117,9 @@ const WelcomeScreen = ({ navigation }: Props) => {
         // Retrieve the JWT token
         const jwtToken = result.params.id_token
         // Decode it
-        const decodedToken = jwtDecode(jwtToken)
-
-        navigation.navigate('Home')
+        const decodedToken: JWT = jwtDecode(jwtToken)
+        dispatch(setUserCredentials(decodedToken))
+        // navigation.navigate('Home')
       }
     }
   }, [result])
