@@ -4,29 +4,36 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen'
-import { PackWithKeys } from '../features/recipes/types'
+import { PackWithKeys, TransformedRecipe } from '../features/recipes/types'
 import { colour, radius, textSize } from '../styles'
+import PackCardRecipe from './PackCardRecipe'
 import Paragraph from './Paragraph'
 
 interface PackCardProps {
   packId: PackWithKeys['id']
   packPhoto: PackWithKeys['photo']
   packName: PackWithKeys['name']
+  recipes: PackWithKeys['recipes']
 }
 
 const PackCard: React.FunctionComponent<PackCardProps> = ({
   packPhoto,
   packId,
   packName,
+  recipes,
 }) => {
+  const PackCardRecipes = Object.values(recipes).map(
+    (recipe: TransformedRecipe) => (
+      <PackCardRecipe key={recipe.id} recipe={recipe} packId={packId} />
+    )
+  )
+
   return (
     <View
       style={{
+        marginVertical: 30,
         marginHorizontal: 15,
-        marginVertical: 10,
-        paddingLeft: 0,
-        paddingRight: 0,
-        height: hp(20),
+
         backgroundColor: '#fff',
 
         elevation: 5,
@@ -42,7 +49,7 @@ const PackCard: React.FunctionComponent<PackCardProps> = ({
     >
       <View
         style={{
-          height: '80%',
+          height: hp(25),
           overflow: 'hidden',
           borderTopStartRadius: radius.sd,
           borderTopEndRadius: radius.sd,
@@ -71,8 +78,8 @@ const PackCard: React.FunctionComponent<PackCardProps> = ({
           </Paragraph>
         </View>
       </View>
-      <View style={{ height: '20%' }}>
-        <Text>Hello</Text>
+      <View style={{ justifyContent: 'center', marginVertical: 50 }}>
+        {PackCardRecipes}
       </View>
     </View>
   )

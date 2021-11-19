@@ -50,6 +50,7 @@ export const textSize = {
 }
 
 export const radius = {
+  sm: 5,
   sd: 10,
   xl: 50,
 }

@@ -40,7 +40,7 @@ interface RecipeWithKeys {
   [key: number]: TransformedRecipe
 }
 
-interface TransformedRecipe {
+export interface TransformedRecipe {
   id: number
   cooking_time: CookingTimeWithKeys
   twists: Twist[]

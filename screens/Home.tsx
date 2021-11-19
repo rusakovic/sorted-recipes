@@ -32,8 +32,10 @@ function HomeScreen() {
   }
 
   const renderItem: ListRenderItem<PackWithKeys> = ({
-    item: { id, photo, name },
-  }) => <PackCard packId={id} packPhoto={photo} packName={name} />
+    item: { id, photo, name, recipes },
+  }) => (
+    <PackCard packId={id} packPhoto={photo} packName={name} recipes={recipes} />
+  )
 
   return (
     <View
