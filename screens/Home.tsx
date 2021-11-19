@@ -23,8 +23,6 @@ import {
 } from 'react-native-responsive-screen'
 
 function HomeScreen() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList, 'Recipe'>>()
   const dispatch = useAppDispatch()
   const { data = [], isFetching } = useGetRecipesQuery()
   const onLogoutHandler = () => {

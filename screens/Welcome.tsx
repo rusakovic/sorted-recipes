@@ -119,7 +119,7 @@ const WelcomeScreen = ({ navigation }: Props) => {
         // Decode it
         const decodedToken: JWT = jwtDecode(jwtToken)
         dispatch(setUserCredentials(decodedToken))
-        // navigation.navigate('Home')
+        navigation.navigate('Home')
       }
     }
   }, [result])
