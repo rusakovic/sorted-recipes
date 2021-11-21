@@ -7,6 +7,7 @@ import {
   Image,
   ListRenderItem,
   Pressable,
+  StyleSheet,
 } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
@@ -22,6 +23,7 @@ import {
   widthPercentageToDP,
 } from 'react-native-responsive-screen'
 import useOrientation from '../hooks/useOrientation'
+import LoadingContainer from '../components/LoadingContainer'
 
 function HomeScreen() {
   const dispatch = useAppDispatch()
@@ -30,32 +32,46 @@ function HomeScreen() {
     dispatch(logoutUser())
   }
 
+  const packDataArray = Object.values(data)
+
+  if (isFetching) {
+    return <LoadingContainer />
+  }
+
   const renderItem: ListRenderItem<PackWithKeys> = ({
     item: { id, photo, name, recipes },
   }) => (
-    <PackCard packId={id} packPhoto={photo} packName={name} recipes={recipes} />
+    <PackCard
+      key={id.toString()}
+      packId={id}
+      packPhoto={photo}
+      packName={name}
+      recipes={recipes}
+    />
   )
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-      }}
-    >
+    <View style={HomeScreenStyles.mainWrapper}>
       <FlatList<PackWithKeys>
-        data={Object.values(data)}
-        keyExtractor={(item) => item.id.toString()}
+        data={packDataArray}
         renderItem={renderItem}
-        style={{
-          width: '100%',
-        }}
+        style={HomeScreenStyles.packWrapper}
       />
       <Button onPress={onLogoutHandler}>Logout</Button>
     </View>
   )
 }
+
+const HomeScreenStyles = StyleSheet.create({
+  mainWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  packWrapper: {
+    width: '100%',
+  },
+})
 
 export default HomeScreen
