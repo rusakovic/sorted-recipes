@@ -1,7 +1,9 @@
 import { useRoute, RouteProp } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { View, Text, Image, Switch } from 'react-native'
+import { View, Text, Image, Switch, ScrollView } from 'react-native'
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen'
+
+import Comment from '../components/Comment'
 import Ingredients from '../components/Ingredients'
 import Paragraph from '../components/Paragraph'
 import { useGetRecipesQuery } from '../features/recipes/fetchRecipes'
@@ -17,6 +19,11 @@ const Recipe: React.FunctionComponent = () => {
   const recipe = data[packId].recipes[recipeId]
 
   const [isFourPeople, setIsFourPeople] = useState(false)
+
+  const Comments = recipe.twists.map(({ name, comment, id }) => (
+    <Comment name={name} comment={comment} key={id} />
+  ))
+
   return (
     <View>
       <Image
@@ -34,57 +41,46 @@ const Recipe: React.FunctionComponent = () => {
           {recipe.title}
         </Paragraph>
 
-        {/* SWITCH */}
-        <View style={{ alignItems: 'center', marginVertical: hp(3) }}>
-          <Text>People:</Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              width: hp(10),
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text>2</Text>
-            <Switch value={isFourPeople} onValueChange={setIsFourPeople} />
-            <Text>4</Text>
-          </View>
-        </View>
+        <ScrollView>
+          <View style={{ alignItems: 'center', minHeight: hp(50) }}>
+            {/* SWITCH */}
+            <View style={{ alignItems: 'center', marginVertical: hp(3) }}>
+              <Text>People:</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  width: hp(10),
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text>2</Text>
+                <Switch value={isFourPeople} onValueChange={setIsFourPeople} />
+                <Text>4</Text>
+              </View>
+            </View>
 
-        {/* INGREDIENTS */}
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '60%',
-          }}
-        >
-          <Paragraph style={{ fontSize: textSize.sd, marginBottom: hp(2) }}>
-            Ingredients:
-          </Paragraph>
+            {/* INGREDIENTS */}
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '60%',
+              }}
+            >
+              <Paragraph style={{ fontSize: textSize.sd, marginBottom: hp(2) }}>
+                INGREDIENTS:
+              </Paragraph>
 
-          <Ingredients number={1} name='Souce' qty={1} measure='g' />
-          <View
-            style={{
-              flexDirection: 'row',
-              width: '100%',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Paragraph>1. Souce</Paragraph>
-            <Paragraph>20g</Paragraph>
+              <Ingredients number={1} name='Souse' qty={100} measure='g' />
+              <Ingredients number={2} name='Rice' qty={250} measure='g' />
+              <Ingredients number={3} name='Sausages' qty={200} measure='g' />
+            </View>
+
+            {/* COMMENTS */}
+            {Comments}
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              width: '100%',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Paragraph>1. Souce</Paragraph>
-            <Paragraph>20g</Paragraph>
-          </View>
-        </View>
+        </ScrollView>
       </View>
     </View>
   )
