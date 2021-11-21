@@ -21,6 +21,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen'
+import useOrientation from '../hooks/useOrientation'
 
 function HomeScreen() {
   const dispatch = useAppDispatch()

@@ -25,7 +25,7 @@ const Recipe: React.FunctionComponent = () => {
   ))
 
   return (
-    <View>
+    <ScrollView>
       <Image
         source={{ uri: recipe.image }}
         style={{ height: hp(30), width: '100%' }}
@@ -34,55 +34,51 @@ const Recipe: React.FunctionComponent = () => {
         style={{
           marginHorizontal: hp(3),
           marginTop: hp(2),
-          alignItems: 'center',
         }}
       >
         <Paragraph bold style={{ fontSize: textSize.sd }}>
           {recipe.title}
         </Paragraph>
 
-        <ScrollView>
-          <View style={{ alignItems: 'center', minHeight: hp(50) }}>
-            {/* SWITCH */}
-            <View style={{ alignItems: 'center', marginVertical: hp(3) }}>
-              <Text>People:</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  width: hp(10),
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Text>2</Text>
-                <Switch value={isFourPeople} onValueChange={setIsFourPeople} />
-                <Text>4</Text>
-              </View>
-            </View>
-
-            {/* INGREDIENTS */}
+        <View style={{ alignItems: 'center', minHeight: hp(50) }}>
+          {/* SWITCH */}
+          <View style={{ alignItems: 'center', marginVertical: hp(3) }}>
+            <Text>People:</Text>
             <View
               style={{
-                justifyContent: 'center',
+                flexDirection: 'row',
                 alignItems: 'center',
-                width: '60%',
+                width: hp(10),
+                justifyContent: 'space-between',
               }}
             >
-              <Paragraph style={{ fontSize: textSize.sd, marginBottom: hp(2) }}>
-                INGREDIENTS:
-              </Paragraph>
-
-              <Ingredients number={1} name='Souse' qty={100} measure='g' />
-              <Ingredients number={2} name='Rice' qty={250} measure='g' />
-              <Ingredients number={3} name='Sausages' qty={200} measure='g' />
+              <Text>2</Text>
+              <Switch value={isFourPeople} onValueChange={setIsFourPeople} />
+              <Text>4</Text>
             </View>
-
-            {/* COMMENTS */}
-            {Comments}
           </View>
-        </ScrollView>
+
+          {/* INGREDIENTS */}
+          <View
+            style={{
+              justifyContent: 'center',
+              width: '60%',
+            }}
+          >
+            <Paragraph style={{ fontSize: textSize.sd, marginBottom: hp(2) }}>
+              INGREDIENTS:
+            </Paragraph>
+
+            <Ingredients number={1} name='Souse' qty={100} measure='g' />
+            <Ingredients number={2} name='Rice' qty={250} measure='g' />
+            <Ingredients number={3} name='Sausages' qty={200} measure='g' />
+          </View>
+
+          {/* COMMENTS */}
+          {Comments}
+        </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
