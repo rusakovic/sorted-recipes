@@ -1,9 +1,6 @@
 import React from 'react'
-import { Pressable, View, Image, Text } from 'react-native'
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen'
+import { View, Image, StyleSheet } from 'react-native'
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen'
 import { PackWithKeys, TransformedRecipe } from '../features/recipes/types'
 import { colour, radius, textSize } from '../styles'
 import PackCardRecipe from './PackCardRecipe'
@@ -29,60 +26,59 @@ const PackCard: React.FunctionComponent<PackCardProps> = ({
   )
 
   return (
-    <View
-      style={{
-        marginVertical: 30,
-        marginHorizontal: 15,
-
-        backgroundColor: '#fff',
-
-        elevation: 5,
-        shadowOffset: {
-          height: 1,
-          width: 0,
-        },
-        shadowColor: colour.black.fullBlack,
-        shadowOpacity: 0.2,
-        shadowRadius: 7,
-        borderRadius: radius.sd,
-      }}
-    >
-      <View
-        style={{
-          height: hp(25),
-          overflow: 'hidden',
-          borderTopStartRadius: radius.sd,
-          borderTopEndRadius: radius.sd,
-        }}
-      >
+    <View style={PackCardStyles.shadowWrapper}>
+      <View style={PackCardStyles.imageWithName}>
         <Image
           resizeMode='cover'
           source={{ uri: packPhoto }}
-          style={{ height: '100%', width: '100%' }}
+          style={PackCardStyles.image}
         />
-        <View
-          style={{
-            position: 'absolute',
-            backgroundColor: colour.opacity.grey40opacity,
-            height: '100%',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Paragraph
-            bold
-            style={{ fontSize: textSize.sd, color: colour.grey.veryLight }}
-          >
+        <View style={PackCardStyles.recipeNameWrapper}>
+          <Paragraph bold style={PackCardStyles.recipeText}>
             {packName}
           </Paragraph>
         </View>
       </View>
-      <View style={{ justifyContent: 'center', marginVertical: 50 }}>
-        {PackCardRecipes}
-      </View>
+      <View style={PackCardStyles.recipesWrapper}>{PackCardRecipes}</View>
     </View>
   )
 }
+
+const PackCardStyles = StyleSheet.create({
+  shadowWrapper: {
+    marginVertical: 30,
+    marginHorizontal: 15,
+
+    backgroundColor: '#fff',
+
+    elevation: 5,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
+    shadowColor: colour.black.fullBlack,
+    shadowOpacity: 0.2,
+    shadowRadius: 7,
+    borderRadius: radius.sd,
+  },
+  imageWithName: {
+    height: hp(25),
+    overflow: 'hidden',
+    borderTopStartRadius: radius.sd,
+    borderTopEndRadius: radius.sd,
+  },
+  image: { height: '100%', width: '100%' },
+  recipeNameWrapper: {
+    position: 'absolute',
+    backgroundColor: colour.opacity.grey40opacity,
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  recipeText: { fontSize: textSize.sd, color: colour.grey.veryLight },
+
+  recipesWrapper: { justifyContent: 'center', marginVertical: hp(5) },
+})
 
 export default PackCard
