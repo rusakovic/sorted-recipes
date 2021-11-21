@@ -1,3 +1,10 @@
+# App Preview
+
+https://user-images.githubusercontent.com/17801144/142776806-acd381d2-0695-4576-914c-d17ae6e0d08e.mp4
+
+# Tests
+Test should be written for functions using `jest`, for screens and components `Storybook` and `Loki`, for e2e testing - `Detox`
+
 # React Native Developer Test
 
 Welcome to the Sorted React Native Developer test. We've been using React Native since its initial public launch in 2015, and since then it's been our go-to choice for developing rich cross-platform experiences. 
