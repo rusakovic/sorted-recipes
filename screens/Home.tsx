@@ -1,33 +1,18 @@
-import { useNavigation } from '@react-navigation/core'
 import React from 'react'
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  ListRenderItem,
-  Pressable,
-  StyleSheet,
-} from 'react-native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { View, FlatList, ListRenderItem, StyleSheet } from 'react-native'
 
 import Button from '../components/Button'
 import { logoutUser } from '../features/login/loginSlice'
 import { useGetRecipesQuery } from '../features/recipes/fetchRecipes'
 import { PackWithKeys } from '../features/recipes/types'
 import { useAppDispatch } from '../hooks/redux/selectorDispatch'
-import { RootStackParamList } from '../types'
 import PackCard from '../components/PackCard'
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen'
-import useOrientation from '../hooks/useOrientation'
 import LoadingContainer from '../components/LoadingContainer'
+import ErrorContainer from '../components/ErrorContainer'
 
 function HomeScreen() {
   const dispatch = useAppDispatch()
-  const { data = [], isFetching } = useGetRecipesQuery()
+  const { data = [], isFetching, isError } = useGetRecipesQuery()
   const onLogoutHandler = () => {
     dispatch(logoutUser())
   }
@@ -36,6 +21,10 @@ function HomeScreen() {
 
   if (isFetching) {
     return <LoadingContainer />
+  }
+
+  if (isError) {
+    return <ErrorContainer errorMessage='Error occurred during data loading' />
   }
 
   const renderItem: ListRenderItem<PackWithKeys> = ({

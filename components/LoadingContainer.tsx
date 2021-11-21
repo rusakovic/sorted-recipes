@@ -4,14 +4,14 @@ import Paragraph from './Paragraph'
 
 const LoadingContainer: React.FunctionComponent = () => {
   return (
-    <View style={ParagraphStyles.mainWrapper}>
+    <View style={LoadingStyles.mainWrapper}>
       <ActivityIndicator size='large' />
       <Paragraph>Loading recipes...</Paragraph>
     </View>
   )
 }
 
-const ParagraphStyles = StyleSheet.create({
+const LoadingStyles = StyleSheet.create({
   mainWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
