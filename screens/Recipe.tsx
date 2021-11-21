@@ -26,43 +26,47 @@ const Recipe: React.FunctionComponent = () => {
 
   return (
     <ScrollView>
-      <Image source={{ uri: recipe.image }} style={RecipeStyles.image} />
-      <View style={RecipeStyles.contentWrapper}>
-        <Paragraph bold style={RecipeStyles.recipeTitleText}>
-          {recipe.title}
-        </Paragraph>
-
-        {/* SWITCH */}
-        <View style={RecipeStyles.switchWrapper}>
-          <Text>People:</Text>
-          <View style={RecipeStyles.switchCountNumberWrapper}>
-            <Text>2</Text>
-            <Switch value={isFourPeople} onValueChange={setIsFourPeople} />
-            <Text>4</Text>
-          </View>
-        </View>
-
-        {/* INGREDIENTS */}
-        <View style={RecipeStyles.ingredientsWrapper}>
-          <Paragraph style={RecipeStyles.ingredientsTextTitle}>
-            INGREDIENTS:
+      <View style={RecipeStyles.mainWrapper}>
+        <Image source={{ uri: recipe.image }} style={RecipeStyles.image} />
+        <View style={RecipeStyles.contentWrapper}>
+          <Paragraph bold style={RecipeStyles.recipeTitleText}>
+            {recipe.title}
           </Paragraph>
 
-          <Ingredients number={1} name='Souse' qty={100} measure='g' />
-          <Ingredients number={2} name='Rice' qty={250} measure='g' />
-          <Ingredients number={3} name='Sausages' qty={200} measure='g' />
+          {/* SWITCH */}
+          <View style={RecipeStyles.switchWrapper}>
+            <Text>People:</Text>
+            <View style={RecipeStyles.switchCountNumberWrapper}>
+              <Text>2</Text>
+              <Switch value={isFourPeople} onValueChange={setIsFourPeople} />
+              <Text>4</Text>
+            </View>
+          </View>
+
+          {/* INGREDIENTS */}
+          <View style={RecipeStyles.ingredientsWrapper}>
+            <Paragraph style={RecipeStyles.ingredientsTextTitle}>
+              INGREDIENTS:
+            </Paragraph>
+
+            <Ingredients number={1} name='Souse' qty={100} measure='g' />
+            <Ingredients number={2} name='Rice' qty={250} measure='g' />
+            <Ingredients number={3} name='Sausages' qty={200} measure='g' />
+          </View>
+
+          {/* COMMENTS */}
+          <Paragraph style={RecipeStyles.commentsTitle}>COMMENTS:</Paragraph>
+
+          {Comments}
         </View>
-
-        {/* COMMENTS */}
-        <Paragraph style={RecipeStyles.commentsTitle}>COMMENTS:</Paragraph>
-
-        {Comments}
       </View>
     </ScrollView>
   )
 }
 
 const RecipeStyles = StyleSheet.create({
+  mainWrapper: { marginBottom: hp(10) },
+
   image: { height: hp(30), width: '100%' },
   contentWrapper: {
     marginHorizontal: hp(3),
